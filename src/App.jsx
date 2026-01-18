@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import { Plus, Users as UsersIcon, LogOut } from 'lucide-react';
 import { useGoogleSheets } from './hooks/useGoogleSheets';
@@ -23,7 +23,7 @@ function AppContent() {
   const [filters, setFilters] = useState({ departemen: '', status: '' });
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
+  
 
   const theme = getTheme(isDark);
   const { 
@@ -41,7 +41,6 @@ function AppContent() {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log('✅ Login success!', tokenResponse);
-      setAccessToken(tokenResponse.access_token);
       
       // Get user info
       try {
@@ -68,7 +67,6 @@ function AppContent() {
   const handleSignOut = () => {
     setIsSignedIn(false);
     setUser(null);
-    setAccessToken(null);
   };
 
   // Filter employees
